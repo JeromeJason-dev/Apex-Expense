@@ -46,6 +46,11 @@ export class Tracker {
     saveToLocalStorage() {
         localStorage.setItem('expenses', JSON.stringify(this.expenses));
     }
+
+    clearAll() {
+        this.expenses = [];
+        this.saveToLocalStorage();
+    }
 }
 
 // --- DOM INTERACTION LOGIC ---
@@ -61,6 +66,7 @@ if (typeof document !== 'undefined' && document.getElementById('expense-form')) 
     const expenseList = document.getElementById('expense-list');
     const totalAmountDisplay = document.getElementById('total-amount');
     const emptyState = document.getElementById('empty-state');
+    const clearBtn = document.getElementById('clear-btn');
 
     const render = () => {
         const displayedExpenses = tracker.getFilteredExpenses();
@@ -119,6 +125,13 @@ if (typeof document !== 'undefined' && document.getElementById('expense-form')) 
     filterSelect.addEventListener('change', (e) => {
         tracker.currentFilter = e.target.value;
         render();
+    });
+
+    clearBtn.addEventListener('click', () => {
+    if (confirm('Are you sure you want to delete all expenses?')) {
+        tracker.clearAll();
+        render();
+        }
     });
 
     // Initial load view
