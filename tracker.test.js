@@ -5,9 +5,9 @@ describe('Tracker Class Unit Tests', () => {
     let tracker;
 
     beforeEach(() => {
-        // This will now call our mock cleanly without failing!
+        // This clears the localStorage to prevent duplication 
         localStorage.clear();
-        tracker = new Tracker();
+        tracker = new Tracker();// creating a fresh instance
     });
 
     test('should add an expense cleanly and update state array', () => {
